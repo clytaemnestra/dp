@@ -1,0 +1,106 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Measures
+{% endblock %}
+
+{% block main %}
+
+<h1>Measures</h1>
+<h2>Please choose current measures.</h2>
+
+<form class="form-group">
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Temperature Category</label>
+  <select class="custom-select-sm mr-sm-2" id="tempCategories">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">School Closing</label>
+  <select class="custom-select-sm mr-sm-2" id="publicInformation">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Workplace Closing</label>
+  <select class="custom-select-sm mr-sm-2" id="workplaceClosing">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Cancel Public Events</label>
+  <select class="custom-select-sm mr-sm-2" id="cancelEvents">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Restrictions On Gatherings</label>
+  <select class="custom-select-sm mr-sm-2" id="restrictionGatherings">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Close Public Transport</label>
+  <select class="custom-select-sm mr-sm-2" id="cancelTransport">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Stay At Home</label>
+  <select class="custom-select-sm mr-sm-2" id="stayAtHome">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Restrictions On Internal Movement</label>
+  <select class="custom-select-sm mr-sm-2" id="restrictionInternalMovement">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">International Travel Controls</label>
+  <select class="custom-select-sm mr-sm-2" id="internationalTravelControls">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Temperature Category</label>
+  <select class="custom-select-sm mr-sm-2" id="inlineFormCustomSelectPref">
+    <option selected>Choose one option</option>
+    <option value="1">-10 - 0</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+
+  <button type="submit" class="btn btn-primary my-1">Submit</button>
+</form>
+
+
+{% endblock %}
