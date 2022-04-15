@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 import logging
 from .models import db, Measure
 
@@ -20,3 +20,5 @@ def get_measures():
     """Gets list of all measures"""
     if request.method == "GET":
         return render_template("index.html")
+    if request.method == "POST":
+        return redirect("/results"), 303
