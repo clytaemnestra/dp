@@ -96,15 +96,14 @@ a:active
 .forms {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
     align-content: center;
 }
 
 .col-sm-auto {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     align-content: center;
 }
