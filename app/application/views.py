@@ -34,3 +34,8 @@ def get_measures():
                 if measure_name == measure_value[0]:
                     measures_dict[measure_name].append(measure_value[1])
     return render_template("index.html", measures_dict=measures_dict)
+
+
+@app.route("/results", methods=["GET"])
+def get_results():
+    return render_template("results.html")
