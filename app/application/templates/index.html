@@ -7,23 +7,23 @@
 {% block main %}
 
 <h1>Measures</h1>
-<div class="forms">
 <h2>Please choose current measures.</h2>
-
+<form action="/results" method="post">
+<div class="forms">
   <div class="row mb-3">
     {% for key, value in measures_dict.items() %}
-    <label for="temperatureCategory" class="col-md-2 col-form-label">{{ key }}
+    <label for="measure-name" class="col-md-2 col-form-label">{{ key }}
       <div class="col-sm-auto">
-        <select class="form-control" id="temperatureCategory" aria-label="Default select">
+        <select class="form-control" id="measure-name" name="{{ key }}" aria-label="Default select">
           <option selected>Choose one option</option>
             {% for v in value %}
-              <option value="1">{{ v }}</option>
+              <option value="{{ v }}">{{ v }}</option>
         {% endfor %}
         </select>
       </div>
      {% endfor %}
-  </div>
-</div>
+      </div>
+    </div>
  <input class="btn btn-primary btn-lg" type="submit" value="Submit">
-
+</form>
 {% endblock %}
