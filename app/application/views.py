@@ -97,4 +97,4 @@ def get_results():
         # adds measures to the final dict
         for j in measures:
             rules_dict[r].append(j)
-    return render_template("results.html")
+    return render_template("results.html", rules_dict=rules_dict)
