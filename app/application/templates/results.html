@@ -11,10 +11,20 @@
 <div class="table-responsive">
     <table class="table">
         <tr>
-            <th></th>
-        <tr>
-            <td></td>
+            <th>rule id</th>
+            <th>support</th>
+            <th>confidence</th>
+            <th>lift</th>
+            <th>measures</th>
         </tr>
+        {% for rule in rules_dict %}
+        <tr>
+            <td>{{ rule[0] }}</td>
+            <td>{{ rule[1] }}</td>
+            <td>{{ rule[2] }}</td>
+            <td>{{ rule[3] }}</td>
+            <td>{{ rule[4] }}</td>
+        {% endfor %}
     </table>
 </div>
 

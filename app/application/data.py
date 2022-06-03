@@ -1,7 +1,10 @@
-from models import Rule, db
+from models import Rule, db, Measure, RuleMeasure
+import ast
 
 file = open("/home/mia/Documents/repos/skola/dp/app/application/formatted_rules", "r")
 contents = file.readlines()
+
+# add rule ids, support, confidence & lift
 rules_list = []
 for item in contents:
     rules_list.append(eval(item))
@@ -18,30 +21,27 @@ for rule in rules_list:
         db.session.commit()
     except Exception as e:
         db.session.rollback()
-print(support)
-    # break
-
-    # print(type(rules_list))
 file.close()
 
-# with open("formatted_rules") as inputfile:
-#     rows = [line.split() for line in inputfile]
-# columns = zip(*rows)
-#
-# print(rows[0])
+# add rule measures
+rules = file.readlines()
+all_measures_from_rules = []
+measures_with_unique_values = {}
+for index, rule in enumerate(rules):
+    rules_dict = ast.literal_eval(rule)
+    for key in rules_dict.keys():
+        # if key not in all_measures_from_rules + ['support', 'confidence', 'uplift']:
+        #     all_measures_from_rules.append(key)
 
-
-"""
-read lines 
-
-for every rule create a new Rule and add support confidence and lift
-how to add? 
-dictionary key - value 
-
-for every rule 
-for every measure
-create a new RuleMeasure
-find measure.id based on measure.name = measure a measure.value = measure.value
-add rule.id
-add measure.id
-"""
+        if key not in ["support", "confidence", "uplift"]:
+            measure_id = (
+                db.session.query(Measure.id)
+                .filter(Measure.name == key, Measure.value == rules_dict[key])
+                .one()
+            )
+            new_rule_measure = RuleMeasure(
+                rule_id=index + 1, measure_id=measure_id[0]
+            )
+            db.session.add(new_rule_measure)
+            db.session.commit()
+file.close()
