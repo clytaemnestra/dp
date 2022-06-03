@@ -1,10 +1,12 @@
 from flask import Blueprint, render_template, request, redirect
 import logging
 from .models import db, Measure, Rule, RuleMeasure
+import ast
+from sqlalchemy import select, and_
 
 logging.basicConfig()
 logger = logging.getLogger("sqlalchemy.engine")
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 app = Blueprint("app", __name__)
 
@@ -44,16 +46,18 @@ def get_results():
     """
     The main algorithm, which filters through rules and measures. It works in the following way:
     1. takes all selected measures & values from form on the FE,
-    2. finds corresponding rules which contain selected measures & values,
+    2. finds corresponding rules which contain all selected measures & values,
     3. for all rules returns confidence, support & lift,
     4. for all rules finds all other corresponding measures & values.
     """
+    rule_ids = []
     f = request.form
     selected_values = {}
     for key in f.keys():
         for value in f.getlist(key):
             if value != "Choose one option":
                 selected_values[key] = value
+
     measure_name = ""
     measure_description = ""
     for key, value in selected_values.items():
@@ -69,19 +73,32 @@ def get_results():
         .all()
     )
 
+    # bugfix:
+    # statement = select(Rule)
+    # for key, value in selected_values.items():
+    #     statement = statement.where(
+    #         select(RuleMeasure.id).join(Measure)
+    #             .where(RuleMeasure.rule_id == Rule.id)
+    #             .where(Measure.name == key)
+    #             .where(Measure.value == value).exists())
+
     # converts tuples to list
     rules_list = [v[0] for v in rule_id]
     rules_dict = {}
+    metrics_list = []
+
     # finds support, confidence & lift for given rules
     for r in rules_list:
         metrics = (
             db.session.query(Rule.support, Rule.confidence, Rule.lift)
             .join(RuleMeasure, Measure.id == RuleMeasure.measure_id)
             .join(Measure, RuleMeasure.measure_id == Measure.id)
-            .filter(RuleMeasure.rule_id == r)
+            .filter(Rule.id == r)
             .distinct()
             .all()
         )
+        metrics_list.append(metrics)
+
         # adds metrics as value for rule id
         rules_dict[r] = []
         for i in metrics:
@@ -97,4 +114,6 @@ def get_results():
         # adds measures to the final dict
         for j in measures:
             rules_dict[r].append(j)
+    print(rules_dict)
     return render_template("results.html", rules_dict=rules_dict)
+

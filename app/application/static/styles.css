@@ -16,7 +16,7 @@ main
 }
 
 body {
-    background-color: #BCD3E7;
+    background-color: #F5FAFA;
 }
 
 .bg-turquoise {
@@ -37,6 +37,9 @@ footer {
 .btn-primary:visited,
 .btn-primary:active {
     background-color: #6B8EB7;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
 }
 
 th {
@@ -110,4 +113,7 @@ a:active
 
 button {
     margin-top: 20px;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
 }
