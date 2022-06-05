@@ -7,13 +7,19 @@
 {% block main %}
 
 <h1>Measures</h1>
-<h2>Please choose current measures.</h2>
+<h2>Please choose some measures:</h2>
 <form action="/results" method="post">
+<div class="form-check">
+<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckDefault">
+    I want exact search, i.e. all rules need to contain all selected measures with all selected values. Otherwise the rules where there's at least one measure will be selected.
+  </label>
+</div>
 <div class="forms">
   <div class="row mb-3">
     {% for key, value in measures_dict.items() %}
+ <div class="col-sm-auto">
     <label for="measure-name" class="col-md-2 col-form-label">{{ key }}
-      <div class="col-sm-auto">
         <select class="form-control" id="measure-name" name="{{ key }}" aria-label="Default select">
           <option selected>Choose one option</option>
             {% for v in value %}

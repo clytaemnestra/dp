@@ -18,14 +18,7 @@ def page_not_found(e):
 
 @app.route("/", methods=["GET", "POST"])
 def get_measures():
-    """
-    Gets list of all measures. The search algorithm works in the following way:
-    1.
-    2.
-    3.
-    4.
-    5.
-     """
+    """Gets list of all measures."""
     measures_dict = {}
     if request.method == "GET":
         measures = db.session.query(Measure.name, Measure.description).all()
@@ -49,7 +42,14 @@ def get_measures():
 
 @app.route("/results", methods=["GET", "POST"])
 def get_results():
-    """Gets list of rules for given measures."""
+    """
+    Gets list of rules for given measures. The search algorithms works in the following way:
+    1.
+    2.
+    3.
+    4.
+    5.
+    """
     f = request.form
     selected_values = {}
     for key in f.keys():

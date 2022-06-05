@@ -12,7 +12,8 @@ main .measure-control
 main
 {
     overflow-x: auto;
-/*     text-align: center; */
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 body {
@@ -70,7 +71,7 @@ tr    {
 }
 
 h1 {
-    margin-top: auto;
+    margin-top: 20px;
     margin-bottom: 50px;
     color: #6B8EB7;
 }
@@ -100,15 +101,24 @@ a:active
     display: flex;
     flex-direction: column;
     justify-content: left;
-    align-content: center;
+    align-items: start;
+    align-content: space-between;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: start;
+    align-content: space-between;
 }
 
 .col-sm-auto {
     display: flex;
     flex-direction: column;
     justify-content: left;
-    align-items: center;
-    align-content: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 button {
@@ -116,4 +126,9 @@ button {
     color: white;
     padding: 8px 16px;
     border-radius: 6px;
+}
+
+.form-check-input {
+    margin-top: 5px;
+    margin-bottom: 50px;
 }
