@@ -67,16 +67,3 @@ def transform_query_data_to_dict(rule_id):
         for j in measures:
             rules_dict[r].append(j)
     return rules_dict
-
-
-"""
-1. funkce - exact search 
-jako vstup bere selected_values
-jako vystup rule_id
-2. funkce - loose search
-jako vstup bere selected_values
-jako vystup rule_id
-3. funkce query to dict
-vstup rule_id
-vystup rules_dict 
-"""

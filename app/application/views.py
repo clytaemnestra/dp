@@ -59,12 +59,18 @@ def get_results():
 
     measure_name = ""
     measure_description = ""
+    # obtains all selected measures & values
     for key, value in selected_values.items():
         measure_name = key
         measure_description = value
 
-    # rule_id = exact_search(selected_values)
-    rule_id = loose_search(measure_name, measure_description)
-    rules_dict = transform_query_data_to_dict(rule_id)
+    # checks if checkbox for exact search if checked
+    if request.form.get("checkbox") == 1:
+        rule_id = exact_search(selected_values)
+    else:
+        rule_id = loose_search(measure_name, measure_description)
 
+    rules_dict = transform_query_data_to_dict(rule_id)
+    # print("rules dic: ", rules_dict)
     return render_template("results.html", rules_dict=rules_dict)
+    # return redirect("/")
