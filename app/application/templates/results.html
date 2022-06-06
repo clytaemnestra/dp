@@ -17,13 +17,13 @@
             <th>lift</th>
             <th>measures</th>
         </tr>
-        {% for rule in rules_dict %}
+        {% for key, value in rules_dict.items() %}
         <tr>
-            <td>{{ rule[0] }}</td>
-            <td>{{ rule[1] }}</td>
-            <td>{{ rule[2] }}</td>
-            <td>{{ rule[3] }}</td>
-            <td>{{ rule[4] }}</td>
+            <td>{{ key }}</td>
+            <td>{{ value[0][0] }}</td>
+            <td>{{ value[0][1] }}</td>
+            <td>{{ value[0][2] }}</td>
+            <td>{{ value[1:] }}</td>
         {% endfor %}
     </table>
 </div>
