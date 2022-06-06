@@ -61,8 +61,8 @@ td {
 }
 
 table {
-    margin: 0 auto;
     page-break-inside:auto;
+    margin-bottom: 30px;
 }
 
 tr    {

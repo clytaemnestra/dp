@@ -71,6 +71,5 @@ def get_results():
         rule_id = loose_search(measure_name, measure_description)
 
     rules_dict = transform_query_data_to_dict(rule_id)
-    # print("rules dic: ", rules_dict)
+    print("rules dic: ", rules_dict)
     return render_template("results.html", rules_dict=rules_dict)
-    # return redirect("/")

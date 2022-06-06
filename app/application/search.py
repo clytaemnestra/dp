@@ -1,5 +1,5 @@
 from .models import db, Measure, Rule, RuleMeasure
-from sqlalchemy import select
+from sqlalchemy import select, desc
 
 
 def exact_search(selected_values):
@@ -13,19 +13,21 @@ def exact_search(selected_values):
             .where(Measure.name == key)
             .where(Measure.description == value)
             .exists()
+            .order_by(desc(Rule.support))
         )
 
     rule_id = db.session.execute(statement).all()
     return rule_id
 
-
 def loose_search(measure_name, measure_description):
     rule_id = (
         db.session.query(RuleMeasure.rule_id)
         .join(Measure, RuleMeasure.measure_id == Measure.id)
+        .join(Rule, RuleMeasure.rule_id == Rule.id)
         .filter(
             Measure.name == measure_name, Measure.description == measure_description
         )
+        .order_by(desc(Rule.support))
         .all()
     )
     return rule_id
