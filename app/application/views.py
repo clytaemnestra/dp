@@ -1,7 +1,12 @@
 from flask import Blueprint, render_template, request, redirect
 import logging
 from .models import db, Measure
-from .search import exact_search, loose_search, transform_query_data_to_dict
+from .search import (
+    exact_search,
+    loose_search,
+    transform_query_data_to_list,
+    get_related_metrics_and_measures,
+)
 
 logging.basicConfig()
 logger = logging.getLogger("sqlalchemy.engine")
@@ -43,33 +48,30 @@ def get_measures():
 @app.route("/results", methods=["GET", "POST"])
 def get_results():
     """
-    Gets list of rules for given measures. The search algorithms works in the following way:
-    1.
-    2.
-    3.
-    4.
-    5.
+    Gets list of rules for selected measures. The search algorithms works in the following way:
+    1. gets selected measures & their values
+    2. if checobox "exact search" is selected, exact search is performed - the algorithm searches for all rules, which contain all selected measures & measures contain selected values
+    3. if checkbox is not selected, loose search is performed - the algorithm searches for all rules, which contain one of the selected measures & selected values
+    4. support, confidence & lift are added for all rules
+    5. for all rules are added all other related measures & their values
+    6. query set data is transformed to a dictionary
+    7. the dictionary is passed to the front-end
     """
     f = request.form
     selected_values = {}
     for key in f.keys():
-        for value in f.getlist(key):
-            if value != "Choose one option":
-                selected_values[key] = value
-
-    measure_name = ""
-    measure_description = ""
-    # obtains all selected measures & values
-    for key, value in selected_values.items():
-        measure_name = key
-        measure_description = value
+        if key != "checkbox":
+            for value in f.getlist(key):
+                if value != "Choose one option":
+                    selected_values[key] = value
 
     # checks if checkbox for exact search if checked
-    if request.form.get("checkbox") == 1:
+    if request.form.get("checkbox") == "1":
         rule_id = exact_search(selected_values)
     else:
-        rule_id = loose_search(measure_name, measure_description)
+        rule_id = loose_search(selected_values)
 
-    rules_dict = transform_query_data_to_dict(rule_id)
-    print("rules dic: ", rules_dict)
+    rules_list = transform_query_data_to_list(rule_id)
+    rules_dict = get_related_metrics_and_measures(rules_list)
+
     return render_template("results.html", rules_dict=rules_dict)

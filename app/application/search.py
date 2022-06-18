@@ -3,7 +3,7 @@ from sqlalchemy import select, desc
 
 
 def exact_search(selected_values):
-    """Returnes rules, where """
+    """Returns rules, where there is exact search between selected measures & their values."""
     statement = select(Rule.id)
     for key, value in selected_values.items():
         statement = statement.where(
@@ -13,31 +13,40 @@ def exact_search(selected_values):
             .where(Measure.name == key)
             .where(Measure.description == value)
             .exists()
-            .order_by(desc(Rule.support))
-        )
+            )
 
     rule_id = db.session.execute(statement).all()
     return rule_id
 
-def loose_search(measure_name, measure_description):
-    rule_id = (
-        db.session.query(RuleMeasure.rule_id)
-        .join(Measure, RuleMeasure.measure_id == Measure.id)
-        .join(Rule, RuleMeasure.rule_id == Rule.id)
-        .filter(
-            Measure.name == measure_name, Measure.description == measure_description
+
+def loose_search(selected_values):
+    """Returns all rules, where there is at least one selected measure & it's value."""
+    temp_rule_list = []
+    for key, value in selected_values.items():
+        one_rule_id = (
+            db.session.query(RuleMeasure.rule_id)
+            .join(Measure, RuleMeasure.measure_id == Measure.id)
+            .join(Rule, RuleMeasure.rule_id == Rule.id)
+            .filter(
+                Measure.name == key, Measure.description == value
+            )
+            .order_by(desc(Rule.support))
+            .all()
         )
-        .order_by(desc(Rule.support))
-        .all()
-    )
+        temp_rule_list.append(one_rule_id)
+    rule_id = [elem for tup in temp_rule_list for elem in tup]
     return rule_id
 
 
-def transform_query_data_to_dict(rule_id):
+def transform_query_data_to_list(rule_id):
     """Every rule returned by functions 'loose_search' and 'exact_search' is in the form of a tuple. It's necessary
-    to transform it to dictionary, so it could be used by front-end."""
-    # converts tuples to list
+    to transform it to list, so it'd could be afterwards transformed to dictionary."""
     rules_list = [v[0] for v in rule_id]
+    return rules_list
+
+
+def get_related_metrics_and_measures(rules_list):
+    """Gets related metrics & measures and returns them to a dictionary, which is then passed tho the front-end."""
     rules_dict = {}
     metrics_list = []
 
