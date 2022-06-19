@@ -83,15 +83,12 @@ h2 {
 }
 
 .return-home {
-    color: white; !important;
     margin-top: auto;
     margin-right: auto;
+    color: #6B8EB7; !important;
 }
 
-a:link,
-a:visited,
-a:hover,
-a:active
+.footer
 {
     color: white;
     text-decoration: none;
@@ -131,4 +128,11 @@ button {
 .form-check-input {
     margin-top: 5px;
     margin-bottom: 50px;
+}
+
+.img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }

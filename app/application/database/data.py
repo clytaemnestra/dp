@@ -1,4 +1,4 @@
-from models import Rule, db, Measure, RuleMeasure
+from ..models import Rule, db, Measure, RuleMeasure
 import ast
 
 file = open("/home/mia/Documents/repos/skola/dp/app/application/formatted_rules", "r")
@@ -9,7 +9,6 @@ rules_list = []
 for item in contents:
     rules_list.append(eval(item))
 
-support = []
 for rule in rules_list:
     try:
         support = [desired_dict["support"] for desired_dict in rule if "support" in desired_dict]
