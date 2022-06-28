@@ -7,15 +7,15 @@
 
 {% block main %}
 
-<h1>Results - Measures</h1>
+<h1>Results - Rules</h1>
 <div class="table-responsive">
     <table class="table">
         <tr>
             <th>rule id</th>
             <th>support</th>
             <th>confidence</th>
-            <th>lift</th>
-            <th>measures</th>
+            <th>uplift</th>
+            <th>rules</th>
         </tr>
         {% for key, value in rules_dict.items() %}
         <tr>
@@ -23,7 +23,7 @@
             <td>{{ value[0][0] }}</td>
             <td>{{ value[0][1] }}</td>
             <td>{{ value[0][2] }}</td>
-            <td>{{ value[1:] }}</td>
+            <td>{{ value[1:]|replace("[", "")|replace("]", "")|replace("'", "")|replace("_", " ") }}</td>
         {% endfor %}
     </table>
 </div>
