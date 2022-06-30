@@ -1,5 +1,4 @@
 from flask import Blueprint, render_template, request, redirect
-import logging
 from .models import db, Measure
 from .search import (
     exact_search,
@@ -8,9 +7,6 @@ from .search import (
     get_related_metrics_and_measures,
 )
 
-logging.basicConfig()
-logger = logging.getLogger("sqlalchemy.engine")
-logger.setLevel(logging.DEBUG)
 
 app = Blueprint("app", __name__)
 
