@@ -13,7 +13,7 @@ def exact_search(selected_values):
             .where(Measure.name == key)
             .where(Measure.description == value)
             .exists()
-            )
+        )
 
     rule_id = db.session.execute(statement).all()
     return rule_id
@@ -27,9 +27,7 @@ def loose_search(selected_values):
             db.session.query(RuleMeasure.rule_id)
             .join(Measure, RuleMeasure.measure_id == Measure.id)
             .join(Rule, RuleMeasure.rule_id == Rule.id)
-            .filter(
-                Measure.name == key, Measure.description == value
-            )
+            .filter(Measure.name == key, Measure.description == value)
             .order_by(desc(Rule.support))
             .all()
         )

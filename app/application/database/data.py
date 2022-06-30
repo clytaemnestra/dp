@@ -11,10 +11,20 @@ for item in contents:
 
 for rule in rules_list:
     try:
-        support = [desired_dict["support"] for desired_dict in rule if "support" in desired_dict]
+        support = [
+            desired_dict["support"]
+            for desired_dict in rule
+            if "support" in desired_dict
+        ]
         support.append(support)
-        confidence = [desired_dict["confidence"] for desired_dict in rule if "confidence" in desired_dict]
-        lift = [desired_dict["uplist"] for desired_dict in rule if "uplist" in desired_dict]
+        confidence = [
+            desired_dict["confidence"]
+            for desired_dict in rule
+            if "confidence" in desired_dict
+        ]
+        lift = [
+            desired_dict["uplist"] for desired_dict in rule if "uplist" in desired_dict
+        ]
         new_rule = Rule(support=support, confidence=confidence, lift=lift)
         db.session.add(new_rule)
         db.session.commit()
@@ -38,9 +48,7 @@ for index, rule in enumerate(rules):
                 .filter(Measure.name == key, Measure.value == rules_dict[key])
                 .one()
             )
-            new_rule_measure = RuleMeasure(
-                rule_id=index + 1, measure_id=measure_id[0]
-            )
+            new_rule_measure = RuleMeasure(rule_id=index + 1, measure_id=measure_id[0])
             db.session.add(new_rule_measure)
             db.session.commit()
 file.close()

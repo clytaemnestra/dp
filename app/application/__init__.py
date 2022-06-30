@@ -1,6 +1,7 @@
 from flask import Flask
 import os
 from .views import page_not_found
+
 # from config import *
 from flask import Flask
 from flask_migrate import Migrate
